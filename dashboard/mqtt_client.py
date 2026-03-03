@@ -15,9 +15,6 @@ TOPIC = "water/temperature"   # Must match ESP32 topic
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code", rc)
     client.subscribe(TOPIC)
-
-
-    
 def on_message(client, userdata, msg):
     try:
         payload = msg.payload.decode()
@@ -25,16 +22,17 @@ def on_message(client, userdata, msg):
 
         temperature = float(payload)
 
+        # Save only the value, since 'topic' field no longer exists
         SensorData.objects.create(
-            topic=msg.topic,
-             value=float(msg.payload.decode())
-        
+            value=temperature
         )
 
         print("Saved to database!")
 
     except Exception as e:
         print("Error:", e)
+
+
 
 client = mqtt.Client()
 client.on_connect = on_connect
