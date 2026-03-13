@@ -39,7 +39,16 @@
 
 <canvas id="tempChart"></canvas>
 
-<br>
+<br><br>
+
+<h2>pH Graph</h2>
+<canvas id="phChart"></canvas>
+
+<br><br>
+
+<h2>Turbidity Graph</h2>
+<canvas id="turbidityChart"></canvas>
+
 
 <a href="/download/">
     <button>Download Sensor Data (CSV)</button>
@@ -110,6 +119,34 @@ const chart = new Chart(ctx, {
     }
 });
 
+const phCtx = document.getElementById('phChart').getContext('2d');
+
+const phChart = new Chart(phCtx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'pH',
+            data: [],
+            borderWidth: 2
+        }]
+    }
+});
+
+const turbCtx = document.getElementById('turbidityChart').getContext('2d');
+
+const turbChart = new Chart(turbCtx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Turbidity',
+            data: [],
+            borderWidth: 2
+        }]
+    }
+});
+
 function loadData(){
 
     let startDate = document.getElementById("startDate").value;
@@ -137,12 +174,22 @@ function loadData(){
         console.log("Data received:", data);
         chart.data.labels = data.labels;
         chart.data.datasets[0].data = data.temps;
+        phChart.data.labels = data.labels;
+        phChart.data.datasets[0].data = data.ph;
+
+        turbChart.data.labels = data.labels;
+        turbChart.data.datasets[0].data = data.turbidity;
+
         chart.update();
+        phChart.update();
+        turbChart.update();
+       
     })
     .catch(error => console.error('Error fetching data:', error));
 }
 
 loadData();
+setInterval(loadData, 5000);//refreshes graph every 5 secs without pressing button...Automatic refresh
 
 </script>
 
