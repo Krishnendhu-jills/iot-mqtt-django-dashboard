@@ -27,5 +27,60 @@ def graph_view(request):
     }
 
     return render(request, 'graph.html', context)
+from django.http import JsonResponse
 
-   
+from django.utils.dateparse import parse_datetime
+from .models import SensorData
+
+def get_data(request):
+
+    start = request.GET.get("start")
+    end = request.GET.get("end")
+
+    data = SensorData.objects.all()
+
+    if start and end:
+        start_time = parse_datetime(start)
+        end_time = parse_datetime(end)
+        data = data.filter(timestamp__range=(start_time, end_time))
+
+    data = data.order_by("timestamp")
+
+    labels = []
+    temps = []
+
+    for item in data:
+        labels.append(item.timestamp.strftime("%H:%M:%S"))
+        temps.append(item.value)
+
+    return JsonResponse({
+        "labels": labels,
+        "temps": temps
+    })
+
+
+
+
+import openpyxl
+
+def download_excel(request):
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Sensor Data"
+
+    # Header
+    ws.append(["Timestamp", "Topic", "Value"])
+
+    data = SensorData.objects.all()
+
+    for d in data:
+        ws.append([d.timestamp, d.topic, d.value])
+
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    response["Content-Disposition"] = 'attachment; filename="sensor_data.xlsx"'
+
+    wb.save(response)
+    return response
+

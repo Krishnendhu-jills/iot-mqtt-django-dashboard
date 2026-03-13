@@ -25,6 +25,7 @@ def on_message(client, userdata, msg):
         # Save only the value, since 'topic' field no longer exists
         SensorData.objects.create(
             value=temperature
+        
         )
 
         print("Saved to database!")

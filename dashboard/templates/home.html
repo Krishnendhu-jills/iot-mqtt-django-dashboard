@@ -1,10 +1,12 @@
-
 <!DOCTYPE html>
 <html>
 <head>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>IoT Sensor Dashboard</title>
     <style>
+
         body {
+
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f6f9;
@@ -70,6 +72,27 @@
     </style>
 </head>
 <body>
+    <h2>Live Temperature Graph</h2>
+
+<canvas id="tempChart" width="400" height="200"></canvas>
+<script>
+const ctx = document.getElementById('tempChart');
+
+const tempChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Temperature',
+            data: [],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+</script>
 
     <div class="navbar">
         IoT Water Quality Monitoring Dashboard
@@ -87,12 +110,17 @@
                 </a>
             </div>
 
+            {% if user.is_authenticated and user.is_staff %}
             <div class="card">
                 <h3>⚙ Admin Panel</h3>
                 <a href="{% url 'admin:index' %}">
                     <button>Open Admin</button>
                 </a>
             </div>
+            {% endif %}
+                <a href="{% url 'download_excel' %}">
+                <button>Download Excel</button>
+                </a>
 
         </div>
     </div>
@@ -100,6 +128,7 @@
     <footer>
         © 2026 IoT Monitoring System | Developed using Django + MQTT
     </footer>
+
 
 </body>
 </html>
