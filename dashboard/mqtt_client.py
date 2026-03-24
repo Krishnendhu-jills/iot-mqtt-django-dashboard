@@ -9,6 +9,7 @@ import json
 from dashboard.models import SensorData
 from django.utils import timezone
 
+
 BROKER = "broker.emqx.io"
 PORT = 1883
 
