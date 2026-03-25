@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard',
+    'dashboard.apps.DashboardConfig',
 ]
-ASGI_APPLICATION = 'mqtt_project.asgi.application'
+ASGI_APPLICATION = 'core.asgi.application'
 
 
 CHANNEL_LAYERS = {
