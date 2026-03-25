@@ -183,7 +183,13 @@ function loadData(){
         chart.update();
         phChart.update();
         turbChart.update();
-       
+
+        
+    // SHOW ALERT
+    if(data.alert){
+        alert(data.alert);
+    }
+
     })
     .catch(error => console.error('Error fetching data:', error));
 }

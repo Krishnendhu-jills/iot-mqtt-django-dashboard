@@ -68,6 +68,27 @@ def get_data(request):
         temps.append(item.temperature)
         ph_values.append(item.ph)
         turbidity_values.append(item.turbidity)
+    
+      # -------- ALERT CHECK --------
+    
+    alerts = []
+
+    if data.exists():
+        latest = data.last()
+
+        if latest.ph > 8.5:
+            alerts.append("⚠️ pH too high")
+
+        if latest.ph < 6.5:
+            alerts.append("⚠️ pH too low")
+
+        if latest.temperature > 35:
+            alerts.append("⚠️ Temperature too high")
+
+        if latest.turbidity == 0:
+            alerts.append("⚠️ Water is Turbid")
+
+    alert_message = ", ".join(alerts) if alerts else None
 
 
     return JsonResponse({
@@ -75,6 +96,7 @@ def get_data(request):
         "temps": temps,
         "ph": ph_values,
         "turbidity": turbidity_values,
+        "alert": alert_message,
     })
 
 
