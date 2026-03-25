@@ -7,11 +7,16 @@ from django.shortcuts import render
 
 from dashboard.models import SensorData
 
+from django.utils import timezone   
+
 
 def home(request):
-    data = SensorData.objects.all().order_by('-timestamp')[:20]
+    data = SensorData.objects.order_by('-timestamp')[:20][::-1]
 
-    timestamps = [d.timestamp.strftime("%H:%M:%S") for d in data]
+    
+    timestamps = [
+    timezone.localtime(d.timestamp).strftime("%H:%M:%S") for d in data
+]
     temperatures = [d.temperature for d in data] 
     ph_values = [d.ph for d in data]
     turbidity_values = [d.turbidity for d in data]
@@ -28,10 +33,12 @@ def home(request):
 import json
 
 def graph_view(request):
-    data = SensorData.objects.all().order_by('-timestamp')[:50]
-    data = reversed(data)
+    data = SensorData.objects.order_by('-timestamp')[:50]
+    
+    timestamps = [
+    timezone.localtime(d.timestamp).strftime("%H:%M:%S") for d in data
+]
 
-    timestamps = [d.timestamp.strftime("%H:%M:%S") for d in data]
     values = [float(d.temperature) for d in data]  # ensure float
 
     context = {
@@ -64,7 +71,7 @@ def get_data(request):
     turbidity_values = []
 
     for item in data:
-        labels.append(item.timestamp.strftime("%H:%M:%S"))
+        labels.append(timezone.localtime(item.timestamp).strftime("%H:%M:%S"))
         temps.append(item.temperature)
         ph_values.append(item.ph)
         turbidity_values.append(item.turbidity)
