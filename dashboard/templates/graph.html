@@ -186,14 +186,15 @@ function loadData(){
 
         
     // SHOW ALERT
-    if(data.alert){
-        alert(data.alert);
-    }
+   if(data.alert && data.alert !== lastAlert){
+    alert(data.alert);
+    lastAlert = data.alert;
+}
 
     })
     .catch(error => console.error('Error fetching data:', error));
 }
-
+let lastAlert = null;
 loadData();
 setInterval(loadData, 5000);//refreshes graph every 5 secs without pressing button...Automatic refresh
 
