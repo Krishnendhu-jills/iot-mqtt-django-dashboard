@@ -50,10 +50,6 @@
 <canvas id="turbidityChart"></canvas>
 
 
-<a href="/download/">
-    <button>Download Sensor Data (CSV)</button>
-</a>
-
 <br><br>
 
 
@@ -116,7 +112,16 @@ const chart = new Chart(ctx, {
             data: [],
             borderWidth: 2
         }]
+    },
+    options: {
+    scales: {
+        x: {
+            ticks: {
+                maxTicksLimit: 10
+            }
+        }
     }
+}
 });
 
 const phCtx = document.getElementById('phChart').getContext('2d');
@@ -130,7 +135,16 @@ const phChart = new Chart(phCtx, {
             data: [],
             borderWidth: 2
         }]
+    },
+    options: {
+    scales: {
+        x: {
+            ticks: {
+                maxTicksLimit: 10
+            }
+        }
     }
+}
 });
 
 const turbCtx = document.getElementById('turbidityChart').getContext('2d');
@@ -144,7 +158,16 @@ const turbChart = new Chart(turbCtx, {
             data: [],
             borderWidth: 2
         }]
+    },
+    options: {
+    scales: {
+        x: {
+            ticks: {
+                maxTicksLimit: 10
+            }
+        }
     }
+}
 });
 
 function loadData(){
