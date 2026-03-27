@@ -65,6 +65,13 @@ canvas{
     padding:10px;
 }
 
+
+
+
+
+
+
+
 </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Sensor Graph</title>
@@ -77,17 +84,17 @@ canvas{
 <div class="card-container">
 
 <div class="sensor-card temp-card">
-<h3>Water Temperature</h3>
+<h3>🌡 Water Temperature</h3>
 <h2 id="tempValue">-- °C</h2>
 </div>
 
 <div class="sensor-card ph-card">
-<h3>pH Level</h3>
+<h3>🧪 pH Level</h3>
 <h2 id="phValue">--</h2>
 </div>
 
 <div class="sensor-card turb-card">
-<h3>Turbidity</h3>
+<h3>💧 Turbidity</h3>
 <h2 id="turbValue">-- NTU</h2>
 </div>
 
@@ -125,21 +132,24 @@ canvas{
 <button onclick="loadData()">Load Data</button>
 
 <br><br>
-<h2>Temperature Trend</h2>
-<canvas id="tempChart" height="120"></canvas>
+<div class="graph-container">
 
-<br><br>
+<div class="graph-box">
+<h3>Temperature Trend</h3>
+<canvas id="tempChart"></canvas>
+</div>
 
-<h2>pH Level Trend</h2>
+<div class="graph-box">
+<h3>pH Level Trend</h3>
 <canvas id="phChart"></canvas>
+</div>
 
-<br><br>
+<div class="graph-box">
+<h3>Turbidity Trend</h3>
+<canvas id="turbidityChart"></canvas>
+</div>
 
-<h2>Turbidity Trend</h2>
-<canvas id="turbidityChart" height="120"></canvas>
-
-
-<br><br>
+</div>
 
 
 <script>
