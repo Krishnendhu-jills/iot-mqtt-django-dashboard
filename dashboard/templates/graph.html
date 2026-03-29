@@ -368,7 +368,7 @@ function loadData(){
     let ph = data.ph[data.ph.length-1];
     let turb = data.turbidity[data.turbidity.length-1];
 
-    if(ph >= 6.5 && ph <= 8.5 && turb==0 && temp < 35){
+    if(ph >= 6.5 && ph <= 8.5 && turb==1 && temp < 35){
         document.getElementById("waterStatus").innerText = "SAFE 🟢";
     }else{
         document.getElementById("waterStatus").innerText = "UNSAFE 🔴";
