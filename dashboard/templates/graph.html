@@ -66,12 +66,6 @@ canvas{
 }
 
 
-
-
-
-
-
-
 </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Sensor Graph</title>
@@ -249,7 +243,21 @@ const phChart = new Chart(phCtx, {
             pointHoverRadius: 4,
             borderColor: "green",
             backgroundColor: "rgba(0,255,0,0.2)"
-        }]
+        }, 
+        {
+            label: 'Min Safe pH (6.5)',
+            data: [],
+            borderDash: [5,5],
+            borderColor: "orange",
+            pointRadius:0
+       },
+       {
+        label: 'Max Safe pH (8.5)',
+        data: [],
+        borderDash: [5,5],
+        borderColor: "orange",
+        pointRadius:0
+      }]
     },
     options: {
     scales: {
@@ -323,7 +331,10 @@ function loadData(){
 
         phChart.data.labels = data.labels;
         phChart.data.datasets[0].data = data.ph;
-       
+        phChart.data.datasets[1].data = data.labels.map(() => 6.5);
+        phChart.data.datasets[2].data = data.labels.map(() => 8.5);
+
+
 
         
 
