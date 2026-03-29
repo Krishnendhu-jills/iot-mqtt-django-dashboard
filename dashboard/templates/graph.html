@@ -110,7 +110,7 @@ canvas{
 <label>Start Date:</label>
 <input type="date" id="startDate">
 
-<label>Start Time:</label>
+<label style="margin-left:20px;">Start Time:</label>
 <input type="time" id="startTime">
 
 <br><br>
@@ -118,7 +118,7 @@ canvas{
 <label>End Date:</label>
 <input type="date" id="endDate">
 
-<label>End Time:</label>
+<label style="margin-left:20px;">End Time:</label>
 <input type="time" id="endTime">
 
 <br><br>
@@ -219,6 +219,13 @@ const chart = new Chart(ctx, {
     }]
     },
     options: {
+        plugins: {
+            legend: {
+                labels:{
+                    padding:25
+                }
+            }
+        },
     scales: {
         x: {
             ticks: {
@@ -260,7 +267,14 @@ const phChart = new Chart(phCtx, {
       }]
     },
     options: {
-    scales: {
+        plugins:{
+            legend: {
+                labels:{
+                    padding:25
+                }
+            }
+        },
+    scales:{
         x: {
             ticks: {
                 maxTicksLimit: 10
@@ -284,9 +298,32 @@ const turbChart = new Chart(turbCtx, {
             pointHoverRadius: 4,
             borderColor: "blue",
             backgroundColor: "rgba(0,0,255,0.2)"
-        }]
+        },
+     {
+            label: 'Clear Water (1)',
+            data: [],
+            borderDash: [5,5],
+            borderColor: "green",
+            pointRadius: 0
+
+      },
+    {
+        
+            label: 'Turbid Water (0)',
+            data: [],
+            borderDash: [5,5],
+            borderColor: "red",
+            pointRadius: 0
+    }]
     },
     options: {
+        plugins:{
+            legend: {
+                labels:{
+                    padding:25
+                }
+            }
+        },
     scales: {
         x: {
             ticks: {
