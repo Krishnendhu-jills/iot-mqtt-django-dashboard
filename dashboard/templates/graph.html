@@ -207,7 +207,9 @@ const chart = new Chart(ctx, {
             pointRadius: 2,
             pointHoverRadius: 4,
             borderColor: "red",
-            backgroundColor: "rgba(255,0,0,0.2)"
+            backgroundColor: "rgba(255,0,0,0.2)",
+            pointBorderColor: "black",
+            pointBorderWidth: 1
         },
         {
             label: 'Temp Limit (35°C)',
@@ -249,7 +251,9 @@ const phChart = new Chart(phCtx, {
             pointRadius: 2,
             pointHoverRadius: 4,
             borderColor: "green",
-            backgroundColor: "rgba(0,255,0,0.2)"
+            backgroundColor: "rgba(0,255,0,0.2)",
+            pointBorderColor: "black",
+            pointBorderWidth: 1
         }, 
         {
             label: 'Min Safe pH (6.5)',
@@ -297,7 +301,9 @@ const turbChart = new Chart(turbCtx, {
             pointRadius: 2,
             pointHoverRadius: 4,
             borderColor: "blue",
-            backgroundColor: "rgba(0,0,255,0.2)"
+            backgroundColor: "rgba(0,0,255,0.2)",
+            pointBorderColor: "black",
+            pointBorderWidth: 1
         },
      {
             label: 'Clear Water (1)',
