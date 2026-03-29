@@ -346,38 +346,40 @@ function loadData(){
         turbChart.update();
 
          // UPDATE SENSOR CARDS
-        if(data.temps.length > 0){
-            document.getElementById("tempValue").innerText =
-                data.temps[data.temps.length-1] + " °C";
-
-            document.getElementById("phValue").innerText =
-                data.ph[data.ph.length-1];
-
-            let turb = data.turbidity[data.turbidity.length-1];
-
-            if(turb == 1){
-            document.getElementById("turbValue").innerText = "CLEAR ✅";
-            }else{
-            document.getElementById("turbValue").innerText = "TURBID ⚠";
-            }
-        }
-
-    if(data.temps.length > 0){
+         // UPDATE SENSOR CARDS + STATUS
+if(data.temps.length > 0){
 
     let temp = data.temps[data.temps.length-1];
     let ph = data.ph[data.ph.length-1];
     let turb = data.turbidity[data.turbidity.length-1];
 
-    if(ph >= 6.5 && ph <= 8.5 && turb==1 && temp < 35){
+    // Update card values
+    document.getElementById("tempValue").innerText = temp + " °C";
+    document.getElementById("phValue").innerText = ph;
+
+    if(turb == 1){
+        document.getElementById("turbValue").innerText = "CLEAR ✅";
+    }else{
+        document.getElementById("turbValue").innerText = "TURBID ⚠";
+    }
+
+    // Temperature alert color
+    if(temp > 35){
+        document.getElementById("tempValue").style.color = "red";
+    }else{
+        document.getElementById("tempValue").style.color = "black";
+    }
+
+    // Water quality check
+    if(ph >= 6.5 && ph <= 8.5 && turb == 1 && temp < 35){
         document.getElementById("waterStatus").innerText = "SAFE 🟢";
     }else{
         document.getElementById("waterStatus").innerText = "UNSAFE 🔴";
     }
 
 }
-
         
-    // SHOW ALERT
+    // SHOW ALERT 
    if(data.alert && data.alert !== lastAlert){
     alert(data.alert);
     lastAlert = data.alert;
