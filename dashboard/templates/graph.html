@@ -214,7 +214,15 @@ const chart = new Chart(ctx, {
             pointHoverRadius: 4,
             borderColor: "red",
             backgroundColor: "rgba(255,0,0,0.2)"
-        }]
+        },
+        {
+            label: 'Temp Limit (35°C)',
+            data: [],
+            borderDash: [5,5],
+            borderColor: "black",
+            pointRadius: 0
+
+    }]
     },
     options: {
     scales: {
@@ -306,10 +314,18 @@ function loadData(){
     .then(response => response.json())
     .then(data => {
         console.log("Data received:", data);
+
         chart.data.labels = data.labels;
         chart.data.datasets[0].data = data.temps;
+
+            // Temp threshold line
+        chart.data.datasets[1].data = data.labels.map(() => 35);
+
         phChart.data.labels = data.labels;
         phChart.data.datasets[0].data = data.ph;
+       
+
+        
 
         turbChart.data.labels = data.labels;
         turbChart.data.datasets[0].data = data.turbidity;
@@ -326,9 +342,14 @@ function loadData(){
             document.getElementById("phValue").innerText =
                 data.ph[data.ph.length-1];
 
-            document.getElementById("turbValue").innerText =
-                data.turbidity[data.turbidity.length-1] + " NTU";
-    }
+            let turb = data.turbidity[data.turbidity.length-1];
+
+            if(turb == 1){
+            document.getElementById("turbValue").innerText = "CLEAR ✅";
+            }else{
+            document.getElementById("turbValue").innerText = "TURBID ⚠";
+            }
+        }
 
     if(data.temps.length > 0){
 
@@ -336,7 +357,7 @@ function loadData(){
     let ph = data.ph[data.ph.length-1];
     let turb = data.turbidity[data.turbidity.length-1];
 
-    if(ph >= 6.5 && ph <= 8.5 && turb < 50 && temp < 35){
+    if(ph >= 6.5 && ph <= 8.5 && turb==0 && temp < 35){
         document.getElementById("waterStatus").innerText = "SAFE 🟢";
     }else{
         document.getElementById("waterStatus").innerText = "UNSAFE 🔴";
